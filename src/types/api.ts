@@ -1,38 +1,16 @@
-export interface Pet {
-  id: number;
-  name: string;
-  category?: Category;
-  photoUrls: string[];
-  tags?: Tag[];
-  status: 'available' | 'pending' | 'sold';
-}
+import type { paths } from './api-schema';
 
-export interface Category {
-  id: number;
-  name: string;
-}
+// Pet types
+export type Pet = paths['/pet/{petId}']['get']['responses']['200']['content']['application/json'];
+export type PetStatus = paths['/pet/findByStatus']['get']['parameters']['query']['status'];
 
-export interface Tag {
-  id: number;
-  name: string;
-}
+// Order types
+export type Order = paths['/store/order/{orderId}']['get']['responses']['200']['content']['application/json'];
+export type OrderStatus = Order['status'];
 
-export interface Order {
-  id: number;
-  petId: number;
-  quantity: number;
-  shipDate: string;
-  status: 'placed' | 'approved' | 'delivered';
-  complete: boolean;
-}
+// User types
+export type User = paths['/user/{username}']['get']['responses']['200']['content']['application/json'];
 
-export interface User {
-  id: number;
-  username: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  phone: string;
-  userStatus: number;
-}
+// Category and Tag types
+export type Category = NonNullable<Pet['category']>;
+export type Tag = NonNullable<Pet['tags']>[number];
