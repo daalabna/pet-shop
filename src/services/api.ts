@@ -1,31 +1,36 @@
-import axios from 'axios';
-import type { Pet, Order, User } from '../types/api';
+import { Api } from '../api/petstore';
 
-const api = axios.create({
-  baseURL: 'https://petstore3.swagger.io/api/v3',
+const client = new Api({
+  baseUrl: 'https://petstore3.swagger.io/api/v3',
 });
 
 export const petApi = {
-  getPetById: (id: number) => api.get<Pet>(`/pet/${id}`),
-  findByStatus: (status: string) => api.get<Pet[]>(`/pet/findByStatus?status=${status}`),
-  addPet: (pet: Pet) => api.post<Pet>('/pet', pet),
-  updatePet: (pet: Pet) => api.put<Pet>('/pet', pet),
-  deletePet: (id: number) => api.delete(`/pet/${id}`),
+  getPetById: (id: number) => client.pet.getPetById(id),
+  findByStatus: (status: 'available' | 'pending' | 'sold') => 
+    client.pet.findPetsByStatus({ status }),
+  addPet: (pet: Parameters<typeof client.pet.addPet>[0]) => 
+    client.pet.addPet(pet),
+  updatePet: (pet: Parameters<typeof client.pet.updatePet>[0]) => 
+    client.pet.updatePet(pet),
+  deletePet: (id: number) => client.pet.deletePet(id),
 };
 
 export const storeApi = {
-  placeOrder: (order: Order) => api.post<Order>('/store/order', order),
-  getOrderById: (id: number) => api.get<Order>(`/store/order/${id}`),
-  deleteOrder: (id: number) => api.delete(`/store/order/${id}`),
-  getInventory: () => api.get<Record<string, number>>('/store/inventory'),
+  placeOrder: (order: Parameters<typeof client.store.placeOrder>[0]) => 
+    client.store.placeOrder(order),
+  getOrderById: (id: number) => client.store.getOrderById(id),
+  deleteOrder: (id: number) => client.store.deleteOrder(id),
+  getInventory: () => client.store.getInventory(),
 };
 
 export const userApi = {
-  createUser: (user: User) => api.post<User>('/user', user),
-  getUserByUsername: (username: string) => api.get<User>(`/user/${username}`),
-  updateUser: (username: string, user: User) => api.put<User>(`/user/${username}`, user),
-  deleteUser: (username: string) => api.delete(`/user/${username}`),
-  login: (username: string, password: string) =>
-    api.get<string>(`/user/login?username=${username}&password=${password}`),
-  logout: () => api.get('/user/logout'),
+  createUser: (user: Parameters<typeof client.user.createUser>[0]) => 
+    client.user.createUser(user),
+  getUserByUsername: (username: string) => client.user.getUserByName(username),
+  updateUser: (username: string, user: Parameters<typeof client.user.updateUser>[0]) => 
+    client.user.updateUser(username, user),
+  deleteUser: (username: string) => client.user.deleteUser(username),
+  login: (username: string, password: string) => 
+    client.user.loginUser({ username, password }),
+  logout: () => client.user.logoutUser(),
 };

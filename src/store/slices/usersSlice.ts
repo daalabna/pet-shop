@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { userApi } from '../../services/api';
-import type { User } from '../../types/api';
 import type { UsersState } from '../../types/store';
+import { User } from '../../api/petstore';
 
 const initialState: UsersState = {
   currentUser: null,

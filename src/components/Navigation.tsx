@@ -1,11 +1,10 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../store';
 import { Dog, LogOut, LogIn, UserPlus, Package, Settings } from 'lucide-react';
 
 const Navigation: React.FC = () => {
-  const navigate = useNavigate();
   const { currentUser } = useSelector((state: RootState) => state.users);
 
   return (

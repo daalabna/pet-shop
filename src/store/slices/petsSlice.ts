@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { petApi } from '../../services/api';
-import type { Pet } from '../../types/api';
 import type { PetsState } from '../../types/store';
+import { Pet } from '../../api/petstore';
 
 const initialState: PetsState = {
   pets: [],

@@ -1,4 +1,4 @@
-import { Pet, Order, User } from './api';
+import type { Order, Pet, User } from "../api/petstore";
 
 export interface PetsState {
   pets: Pet[];

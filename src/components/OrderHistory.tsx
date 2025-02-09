@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchUserOrders } from '../store/slices/ordersSlice';
 import type { AppDispatch, RootState } from '../store';
-import { Package, Calendar, Clock, CheckCircle, XCircle } from 'lucide-react';
+import { Package, Calendar, Clock, CheckCircle } from 'lucide-react';
 
 const OrderHistory: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();

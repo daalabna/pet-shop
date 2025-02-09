@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { storeApi } from '../../services/api';
-import type { Order } from '../../types/api';
 import type { OrdersState } from '../../types/store';
+import { Order } from '../../api/petstore';
 
 const initialState: OrdersState = {
   orders: [],
